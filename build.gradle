@@ -1,0 +1,48 @@
+group 'ru.innopolis.smith'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile "javax.servlet:javax.servlet-api:3.1.0"
+    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.3.RELEASE'
+    // https://mvnrepository.com/artifact/jstl/jstl
+    compile group: 'jstl', name: 'jstl', version: '1.2'
+
+//    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+//    compile group: 'org.springframework.security', name: 'spring-security-core', version: '3.0.8.RELEASE'
+//    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+//    compile group: 'org.springframework.security', name: 'spring-security-config', version: '3.0.8.RELEASE'
+//    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+//    compile group: 'org.springframework.security', name: 'spring-security-web', version: '3.0.8.RELEASE'
+//    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+//    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '3.0.8.RELEASE'
+
+
+
+    compile "org.springframework.security:spring-security-config:4.1.3.RELEASE"
+    compile "org.springframework.security:spring-security-core:4.1.3.RELEASE"
+    compile "org.springframework.security:spring-security-web:4.1.3.RELEASE"
+    compile "org.springframework.security:spring-security-taglibs:4.1.3.RELEASE"
+//    // https://mvnrepository.com/artifact/org.springframework/spring-aop
+//    compile group: 'org.springframework', name: 'spring-aop', version: '4.3.3.RELEASE'
+//    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+//    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.3.RELEASE'
+//    // https://mvnrepository.com/artifact/org.springframework/spring-tx
+//    compile group: 'org.springframework', name: 'spring-tx', version: '4.3.3.RELEASE'
+//// https://mvnrepository.com/artifact/org.springframework/spring-expression
+//    compile group: 'org.springframework', name: 'spring-expression', version: '4.3.3.RELEASE'
+
+
+
+}

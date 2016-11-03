@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/student_system">
+    <Resource
+            driverClassName="org.postgresql.Driver"
+            maxTotal="4"
+            maxIdle="2"
+            maxWaitMillis="5000"
+            name="jdbc/studentsDS"
+            username="postgres"
+            password="sergey050992"
+            type="javax.sql.DataSource"
+            url="jdbc:postgresql://localhost:5432/students_db"
+            validationQuery="SELECT 1">
+    </Resource>
+</Context>
