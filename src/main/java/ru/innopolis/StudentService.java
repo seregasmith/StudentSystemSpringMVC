@@ -1,9 +1,9 @@
 package ru.innopolis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.innopolis.repository.StudentRepository;
 
-import javax.persistence.EntityManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,20 +12,26 @@ import java.util.List;
  */
 @Service
 public class StudentService {
-    public List<Student> getStudentList(){
-        try {
-            return HibernateDBWrapper.getInstance().getStudentsList();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
+    @Autowired
+    StudentRepository studentRepository;
+
+    public Iterable<Student> getStudentList(){
+        return studentRepository.findAll();
     }
 
     public void deleteStudent(int id) {
-        try {
-            DBWrapper.getInstance().deleteStudent(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        studentRepository.delete(id);
+    }
+
+    public void deleteStudents(Iterable<String> ids) {
+        List<Integer> ids_int = new ArrayList<>();
+        for (String s : ids){
+            ids_int.add(Integer.parseInt(s));
         }
+        studentRepository.deleteById(ids_int);
+    }
+
+    public void addNewStudent(Student student) {
+        studentRepository.save(student);
     }
 }
