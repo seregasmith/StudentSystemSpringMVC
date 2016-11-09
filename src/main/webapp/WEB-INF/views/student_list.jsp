@@ -29,7 +29,7 @@
 
             <c:forEach items="${user_list}" var="student">
                 <tr>
-                    <td><input type="checkbox" name=${student.dbId}></td>
+                    <td><input type="checkbox" name=${student.id}></td>
                     <td>${student.surname}</td>
                     <td>${student.name}</td>
                     <td>${student.sex}</td>

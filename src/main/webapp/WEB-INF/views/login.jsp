@@ -45,14 +45,14 @@
                 </div>
                 <div class="panel-body">
                     <form accept-charset="UTF-8" role="form" id='loginForm' name='loginForm'
-                          action="<c:url value='/j_spring_security_check' />" method='POST'>
+                          action="<c:url value='/login' />" method='POST'>
                         <fieldset>
                             <div class="form-group <c:if test="${not empty error}">has-error</c:if>">
-                                <input class="form-control" placeholder="Логин" name="j_username" type="text"
+                                <input class="form-control" placeholder="Логин" name="username" type="text"
                                        required="" autofocus="">
                             </div>
                             <div class="form-group <c:if test="${not empty error}">has-error</c:if>">
-                                <input class="form-control" placeholder="Пароль" name="j_password" type="password"
+                                <input class="form-control" placeholder="Пароль" name="password" type="password"
                                        value="" required="">
                             </div>
                             <button type="submit" class="btn btn-success btn-block">Войти</button>

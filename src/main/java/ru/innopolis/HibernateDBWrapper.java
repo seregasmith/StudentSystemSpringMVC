@@ -1,83 +1,81 @@
 package ru.innopolis;
 
+import org.hibernate.transform.Transformers;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBWrapper
-{
+/**
+ * Created by Smith on 07.11.2016.
+ */
+public class HibernateDBWrapper {
     private static Connection con;
-    private static DBWrapper instance;
+    private static HibernateDBWrapper instance;
     private static DataSource dataSource;
+    private static EntityManager entityManager;
 
-    private DBWrapper() {
+    private HibernateDBWrapper() {
     }
 
-    public static synchronized DBWrapper getInstance() {
+    public static synchronized HibernateDBWrapper getInstance() {
         if (instance == null) {
             try {
-                instance = new DBWrapper();
-                Context ctx = new InitialContext();
-                instance.dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/studentsDS");
-                con = dataSource.getConnection();
-            } catch (NamingException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                instance = new HibernateDBWrapper();
+            }catch (Exception e){
+
             }
         }
         return instance;
     }
 
     public List<Student> getStudentsList() throws SQLException {
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM student");
-        List<Student> student_list = studentListFromResultSet(rs);
-        rs.close();
-        stmt.close();
-        return student_list;
+        entityManager = HibernateUtil.getEm();
+//        Query query = entityManager.createQuery("from Student");
+//
+//        List<Student> list = query.getResultList();
+
+        Query query = entityManager.createNativeQuery("SELECT * FROM " + "studentz" + ";");
+        List<Student> list = query.getResultList();
+//        Statement stmt = con.createStatement();
+//        ResultSet rs = stmt.executeQuery("SELECT * FROM student");
+//        List<Student> student_list = studentListFromResultSet(rs);
+//        rs.close();
+//        stmt.close();
+        entityManager.close();
+        return list;
     }
 
     public List<Student> getStudentsListSortedBy(String field) throws SQLException {
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(new StringBuilder("SELECT * FROM student").append(" SORT BY ").append(field).toString() );
-        List<Student> student_list = studentListFromResultSet(rs);
-        rs.close();
-        stmt.close();
+//        Statement stmt = con.createStatement();
+//        ResultSet rs = stmt.executeQuery(new StringBuilder("SELECT * FROM student").append(" SORT BY ").append(field).toString() );
+//        List<Student> student_list = studentListFromResultSet(rs);
+//        rs.close();
+//        stmt.close();
+        List<Student> student_list = null;
         return student_list;
     }
 
     public List<Student> getStudentsWith(String field, String value) throws SQLException {
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(new StringBuilder("SELECT * FROM student")
-                .append(" WHERE ").append(field)
-                .append(" = ").append(value)
-                .toString()
-        );
-        List<Student> student_list = studentListFromResultSet(rs);
-        rs.close();
-        stmt.close();
-        return student_list;
-    }
-
-    private List<Student> studentListFromResultSet(ResultSet rs) throws SQLException {
-        List<Student> student_list = new ArrayList<>();
-        while (rs.next()) {
-            Student student = new Student();
-            student.setId(rs.getInt("id"));
-            student.setName(rs.getString("name"));
-            student.setSurname(rs.getString("surname"));
-            student.setDateOfBirth(rs.getDate("dob"));
-            switch (rs.getString("sex")){
-                case "M": student.setSex(Student.Sex.MALE); break;
-                case "F": student.setSex(Student.Sex.FEMALE); break;
-            }
-            student_list.add(student);
-        }
+//        Statement stmt = con.createStatement();
+//        ResultSet rs = stmt.executeQuery(new StringBuilder("SELECT * FROM student")
+//                .append(" WHERE ").append(field)
+//                .append(" = ").append(value)
+//                .toString()
+//        );
+//        List<Student> student_list = studentListFromResultSet(rs);
+//        rs.close();
+//        stmt.close();
+        List<Student> student_list = null;
         return student_list;
     }
 
@@ -86,7 +84,7 @@ public class DBWrapper
         long res = stmt.executeUpdate(
                 new StringBuilder("DELETE FROM student WHERE id = ")
                         .append(String.valueOf(id))
-                .toString()
+                        .toString()
         );
         stmt.close();
         return res;
@@ -122,5 +120,4 @@ public class DBWrapper
         stmt.close();
         return res;
     }
-
 }

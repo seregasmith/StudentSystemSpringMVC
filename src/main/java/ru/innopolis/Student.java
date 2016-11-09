@@ -1,27 +1,39 @@
 package ru.innopolis;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by Smith on 31.10.2016.
  */
+@Entity
+@Table(name= "studentz")
 public class Student {
 
 
-    public enum Sex{MALE,FEMALE;}
-    private int db_id;
+    public enum Sex{MALE,FEMALE}
+    @Id
+    @Column(name= "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
+    @Column(name= "name", length=16)
     private String name;
+    @Column(name= "surname", length=16)
     private String surname;
+    @Column(name= "sex")
+    @Enumerated(EnumType.ORDINAL)
     private Sex sex;
+    @Column(name= "dob")
+    @Temporal(value=TemporalType.DATE)
     private Date dateOfBirth;
 
-    public int getDbId() {
-        return db_id;
+    public int getId() {
+        return id;
     }
 
-    public void setDbId(int db_id) {
-        this.db_id = db_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

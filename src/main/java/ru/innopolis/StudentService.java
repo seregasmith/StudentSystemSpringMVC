@@ -2,6 +2,7 @@ package ru.innopolis;
 
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 public class StudentService {
     public List<Student> getStudentList(){
         try {
-            return DBWrapper.getInstance().getStudentsList();
+            return HibernateDBWrapper.getInstance().getStudentsList();
         } catch (SQLException e) {
             e.printStackTrace();
         }
